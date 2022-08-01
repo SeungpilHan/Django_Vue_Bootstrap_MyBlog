@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig', #블로그 앱 등록
+    'api.apps.ApiConfig', #API앱에 설정 클래스 등록
     
     'django.contrib.admin',
     'django.contrib.auth',
