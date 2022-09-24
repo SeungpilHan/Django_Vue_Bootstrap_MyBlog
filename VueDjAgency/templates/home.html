@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}home.html{% endblock %}
+
+{% block extra-style %}
+{{ block.super }}
+<style>
+    .my-img-h300 {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+    .my-post-title {
+        height: 60px;
+    }
+    .my-link:hover {
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Blog Grid-->
+<section class="page-section bg-light" id="portfolio">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-heading">
+                <span class="h2 text-uppercase">Post List</span>&nbsp;
+                <span v-if="category" class="h6 fst-italic">( Category: [[ category ]] )</span>
+                <span v-if="tag" class="h6 fst-italic">( Tag: [[ tag ]] )</span>
+            </div>
+            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+        </div>
+        <div class="row">
+            <div v-for="post in postList" :key="post.id" class="col-lg-4 col-sm-6 mb-4">
+                <div class="portfolio-item">
+                    <a class="portfolio-link" :href="`/blog/post/${post.id}/#post`">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid my-img-h300" :src="post.image" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-subheading text-muted">
+                            [[ post.category ]] &emsp;
+                            <i class="fas fa-heart text-danger"></i> [[ post.like ]]
+                        </div>
+                        <div class="portfolio-caption-heading my-post-title">[[ post.title ]]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Pagination -->
+        <ul class="pagination justify-content-center">
+            <li :class="prevClass">
+                <div @click="firstPage" class="page-link">first</div>
+            </li>
+
+            <li :class="prevClass">
+                <div @click="prevPage" class="page-link">prev</div>
+            </li>
+
+            <li v-for="page in pages" :class="pageClass(page)">
+                <div @click="pageChanged(page)" class="page-link">[[ page ]]</div>
+            </li>
+
+            <li :class="nextClass">
+                <div @click="nextPage" class="page-link">next</div>
+            </li>
+
+            <li :class="nextClass">
+                <div @click="lastPage" class="page-link">last</div>
+            </li>            
+        </ul>
+
+    </div>
+</section>
+
+<!-- Iam -->
+<section class="page-section bg-light" id="team">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">한 승 필</h2>
+            <h3 class="section-subheading text-muted">Full Stack Developer</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="{% static 'assets/img/team/6.jpg' %}" alt="..." />
+                    <h4>한승필</h4>
+                    <p class="text-muted">Full Stack Developer</p>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="mb-5">
+                    <h4>백석대학교 정보통신학부 졸업</h4>
+                    <p class="text-muted">-5g 기반의ICT 융합 서비스 아이디어 경진대회 우수상
+                        <br>-상위 10% K-MOVE 해외취업반 합격</p>
+                </div>
+                <div class="mb-5">
+                    <h4>일본 누보사이버 비지니스 취업</h4>
+                    <p class="text-muted">-스미토모 증권은행 은행거래 서버개발팀 6개월 근무 (Java, JavaScript, HirDB, Jsp, IBM MQ, JustWare)
+                    <br>-미쓰비시 Biz Timeline 사이트 풀스택 개발 6개월 근무 (Java, JavaScript, Oracle)
+                    <br>-소프트뱅크 고객 상담센터 대화내용 음성인식 후 텍스트화 시켜주는 신서비스 풀스택 연구개발 2년 근무 (Vue, Vuetify, Python, JavaScript, Django, MongoDB, Linux)
+                </div>
+                <div class="mb-5">
+                    <h4>GK렌탈 운영(기업체 건설사 협력업체)</h4>
+                    <p class="text-muted">산업용 제습기, 이동식 에어컨, 냉방기, 난방기, 냉난방기 등 다양한 상품 렌탈 및 판매</p>
+                </div>
+                <div class="mb-5">
+                    <h4></h4>
+                </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+<!-- Footer-->
+<footer class="footer py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 text-lg-start">
+                Copyright &copy; Your Website
+                <!-- This script automatically adds the current year to your website footer-->
+                <!-- (credit: https://updateyourfooter.com/)-->
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+            </div>
+            <div class="col-lg-4 my-3 my-lg-0">
+                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+{% block extra-script %}
+    {% include 'include/post_list_vue.html' %}
+{% endblock %}
